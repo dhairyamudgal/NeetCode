@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int cal(int a, int b, const std::string& ch) {
+        if (ch == "+") return a + b;
+        if (ch == "-") return a - b;
+        if (ch == "/") return a / b;
+        if (ch == "*") return a * b;
+
+        return 0;
+    }
+
+    int evalRPN(vector<string>& tokens) {
+        stack<int> st;
+        unordered_set<std::string> s = {"+", "-", "*", "/"};
+
+        for (int i=0;i<tokens.size();i++) {
+            string ch = tokens[i];
+            if (s.find(ch) != s.end()) {
+                int top2 = st.top();
+                st.pop();
+                int top1 = st.top();
+                st.pop();
+
+                int temp = cal(top1, top2, ch);
+                st.push(temp);
+            } else {
+                st.push(stoi(ch));
+            }
+        }
+
+        return st.top();
+    }
+};
