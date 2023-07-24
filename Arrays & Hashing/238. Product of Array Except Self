@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        /*
+
+    nums = [2,2,3,4]
+    pre=   [1,2,4,12]
+    post = [24,12,4,1]
+
+
+        */
+
+    int prod =1;
+    int n = nums.size();
+    int pre[n];
+    int post[n];
+    vector<int> ans;
+    for(int i=0;i<n;i++){
+        pre[i] = prod;
+        prod = prod * nums[i];
+    }
+
+    prod = 1;
+    for(int i = n-1;i>=0;i--){
+        post[i] = prod;
+        prod *= nums[i];
+    }
+        
+
+    for(int i=0;i<n;i++){
+        int final_ans = pre[i] * post[i];
+        ans.push_back(final_ans);
+    }
+
+    return ans;
+    }
+};
